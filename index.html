@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Log in</title>
+    <script>
+        window.onload = function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/all');
+            xhr.send();
+            xnr.onload = function() {
+                document.getElementById('container').innerHTML = this.responseText;
+            }
+            var btn = document.getElementById('btn');
+            var btn1 = document.getElementById('btn1');
+            var inp = document.getElementsByTagName('input');
+            btn.addEventListener('click', function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/login');
+
+                for (var i = 0; i < inp.length - 1; i++) {
+                    if (inp[i].value == "") {
+                        return;
+                    }
+                }
+                var userData = {
+                    username: inp[0].value,
+                    password: inp[1].value
+                };
+                console.log(JSON.stringify(userData));
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(userData));
+
+                xhr.onload = function () {
+                    alert(this.responseText);
+                };
+
+                xhr.onerror = function () {
+                    alert('server error!');
+                }
+            });
+            btn1.addEventListener('click', function(){
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/check');
+                xhr.send();
+                xhr.onload = function() {
+                    document.querySelector('#greeting').innerHTML = this.responseText;
+                }
+            })
+            };
+
+
+    </script>
+</head>
+<body>
+    <div class="panel well" style="width: 350px; padding: 25px; text-align: center">
+        <h2 style="margin-bottom: 35px">Log In</h2>
+        <form name="login">
+            <div class="form-group">
+                <label>UserName</label><input class="form-control input-lg" type="text" id="login">
+            </div>
+            <div class="form-group">
+                <label>Password</label><input class="form-control input-lg" type="password" id="password">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-lg btn-success" type="button" id="btn" value="Log in">
+            </div>
+        </form>
+    </div>
+    <div class="panel">
+      <h1>Registered users:</h1>
+        <div id="container">
+
+        </div>
+        <div class="panel">
+            <button class="btn btn-lg btn-success" id="btn1">Greet user!</button>
+            <h2 id="greeting"></h2>
+        </div>
+
+    </div>
+
+</body>
+</html>
