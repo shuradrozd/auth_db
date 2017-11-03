@@ -6,9 +6,11 @@ module.exports = {
     createStore: function() {
         var config = {
             user: 'test',
-            password: 'test',
-            database: 'test',
+            //password: 'test',
+            password: 'jndbynf_11',
             server: 'localhost',
+            //database: 'test',
+            database: 'temp',
             port: 1433,
             pool: {
                 max: 10,

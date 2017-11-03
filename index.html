@@ -12,12 +12,13 @@
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/all');
             xhr.send();
-            xnr.onload = function() {
+            xhr.onload = function() {
                 document.getElementById('container').innerHTML = this.responseText;
-            }
+            };
             var btn = document.getElementById('btn');
             var btn1 = document.getElementById('btn1');
             var inp = document.getElementsByTagName('input');
+
             btn.addEventListener('click', function () {
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', '/login');
@@ -32,6 +33,7 @@
                     password: inp[1].value
                 };
                 console.log(JSON.stringify(userData));
+
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify(userData));
 
@@ -71,16 +73,14 @@
             </div>
         </form>
     </div>
+
     <div class="panel">
       <h1>Registered users:</h1>
-        <div id="container">
-
-        </div>
+        <div id="container"></div>
         <div class="panel">
             <button class="btn btn-lg btn-success" id="btn1">Greet user!</button>
             <h2 id="greeting"></h2>
         </div>
-
     </div>
 
 </body>
